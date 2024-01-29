@@ -6,7 +6,7 @@ import { faTrash } from "@fortawesome/free-solid-svg-icons";
 import { useNavigate } from "react-router-dom";
 
 const Deleteblog = () => {
-  const [response,setPost] = useState([]);
+  const [response,setPost] = useState([])
    
   const BLOG_URL = '/blogs';
 
