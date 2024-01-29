@@ -30,7 +30,7 @@ const Search = () => {
   ];
  
   return (
-    <div className='flex justify-center flex-col px-[70] mt-8  md:px-[150px]'>
+    <div className='flex justify-center flex-col px-[70] mt-8 '>
       <h1 className='bg-purple-100 mt-[-18px] mb-3'><marquee behavior="relative" direction="left" className='h-8 text-[20px]  font-semibold bg-blue'>This is Web Blog for developers and other peaple who are interested with coding development trends!! </marquee>
         <img src={profile2} alt="Photo" className=' w-[100%] '/></h1>
         <div className='bg-white shadow-1g p-3 rounded-lg mt-[-20px] mx-[25%]'>
@@ -44,7 +44,8 @@ const Search = () => {
             </ul>
           ))}
         </div>
-        <button>Add Blog</button>
+        
+        
     </div>
   )
 }

@@ -33,16 +33,26 @@ const Login = () => {
     e.preventDefault();
     try{  
         const response= await axiosClient.post(LOGIN_URL,{email,password})
-       setEmail("");
-       setPassword("");
-       setSuccess(true);
-         console.log(response)
-         navigate('/')
+
+        const accessToken = response?.data?.token;
+
+       setAuth({email,password,accessToken});
+
+         console.log(response);
+         navigate('/Blogs');
     }catch(err){
+        if(err.status === 401){
+            setErrMsg("Invalid entry");
+        }else {
+         alert(" Invalid Entry")
+            navigate('/Signup');
+        }
 
     }
    
-   
+    setEmail("");
+       setPassword("");
+       setSuccess(true);
    } 
 
   return (

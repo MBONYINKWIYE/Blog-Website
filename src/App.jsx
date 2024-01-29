@@ -1,25 +1,36 @@
 import React from 'react'
 import Home from './components/Home'
-import Header from './components/Header'
-import Footer from './components/Footer'
 import Signup from './components/Signup'
-import { BrowserRouter, Routes, Route } from 'react-router-dom'
+import { createBrowserRouter, NavLink, Routes, Route, createRoutesFromElements, RouterProvider } from 'react-router-dom'
 import Login from './components/Login'
-import Blogs from './components/Blogs'
+//layouts
+import Blogs from './Mylayouts/Blogs'
+import { RouterLayout } from './Mylayouts/RouterLayout'
+import Editblog from './components/Editblog'
+import Deleteblog from './components/Deleteblog'
+import Intropost from './components/Intropost'
+
+
+const router = createBrowserRouter(
+  createRoutesFromElements(
+    <Route path='/' element={<RouterLayout />}>
+        <Route index element={<Home />} />
+        <Route path='Login' element={<Login />} />
+        <Route path='Signup' element={<Signup />} />
+        <Route path='Blogs' element={<Blogs />}>
+          <Route path="Intropost" element={<Intropost />}/>
+          <Route path="Editblog" element={<Editblog />}/>
+          <Route path="Deleteblog" element={<Deleteblog />}/>
+        </Route>
+        </Route>
+        
+  )
+)
 
 
 const App = () => {
   return (
-    <BrowserRouter>
-      <Header />
-      <Routes>
-        <Route exact path='/' element={<Home />} />
-        <Route path='/Blogs' element={<Blogs />} />
-        <Route path='/Login' element={<Login />} />
-        <Route path='/Signup' element={<Signup />} />
-      </Routes>
-      <Footer />
-    </BrowserRouter>
+    <RouterProvider router={router} />
   )
 }
 

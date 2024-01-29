@@ -1,8 +1,9 @@
 import React, { useState, useEffect } from 'react'
 import Search from './Search'
 import Intropost from './Intropost'
-import Blogs from './Blogs'
+import Blogs from '../Mylayouts/Blogs'
 import GlobalApi from '../Services/GlobalApi'
+import AllPost from './AllPost'
 
 function Home() {
 
@@ -23,7 +24,7 @@ function Home() {
     <>
      
         <Search />
-        <Intropost/>
+        <AllPost />
         
     </>
   )

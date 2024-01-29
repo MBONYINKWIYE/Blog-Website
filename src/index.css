@@ -1,4 +1,6 @@
 
+  @import url('https://fonts.googleapis.com/css2?family=Alatsi&family=Nunito+Sans:ital,opsz,wght@0,6..12,500;0,6..12,600;0,6..12,800;0,6..12,1000;1,6..12,800;1,6..12,1000&display=swap');
+
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
