@@ -1,31 +1,39 @@
-# Authentication Blog (React + Vite)
+# DevBlog Pro Frontend
 
-This repository contains a React-based blog frontend with authentication and a dashboard workflow for blog management.
+Professional React + Vite frontend for a blog platform with:
+- Public user-facing blog pages
+- Separate admin-only portal
+- CRUD dashboard for post management
 
-## Project status
+## Route structure
 
-The current app is functional as an early-stage MVP and includes:
-- Signup/Login screens
-- Public home feed with fetched posts
-- Dashboard shell for create/edit/delete actions
-- Backend API integration via Axios
+### Public routes
+- `/` - public homepage and post feed
+- `/login` - user login
+- `/signup` - user registration
 
-A detailed technical review and upgrade roadmap is provided here:
+### Admin routes
+- `/admin/login` - admin authentication page
+- `/admin` - admin dashboard (default create view)
+- `/admin/create` - create post
+- `/admin/edit` - edit post
+- `/admin/delete` - delete post
 
-- [`docs/PROJECT_REVIEW.md`](docs/PROJECT_REVIEW.md)
+## Admin credentials
+Admin login checks these environment variables:
+- `VITE_ADMIN_EMAIL` (default: `admin@blog.com`)
+- `VITE_ADMIN_PASSWORD` (default: `Admin@123`)
 
-## Development scripts
+## Development
 
-- `npm run dev` — run development server
-- `npm run build` — create production build
-- `npm run preview` — preview production build
-- `npm run lint` — run ESLint
+```bash
+npm install
+npm run dev
+```
 
-## Tech stack
+## Quality checks
 
-- React 18
-- Vite 5
-- React Router 6
-- Tailwind CSS
-- Axios
-- React Hook Form
+```bash
+npm run lint
+npm run build
+```
