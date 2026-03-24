@@ -1,41 +1,43 @@
 import { useEffect, useState } from 'react'
-import React from 'react'
 import axiosClient from '../Services/GlobalApi'
 
-
 const AllPost = () => {
-   const [response,setPost] = useState([]);
-   
-   const BLOG_URL = '/blogs';
+  const [posts, setPosts] = useState([])
+  const [loading, setLoading] = useState(true)
+  const [error, setError] = useState('')
 
-   useEffect(()=>{
-      getPost();
-   },[])
+  useEffect(() => {
+    const getPost = async () => {
+      try {
+        const response = await axiosClient.get('/blogs')
+        setPosts(response.data.blogs)
+      } catch {
+        setError('Unable to load posts right now.')
+      } finally {
+        setLoading(false)
+      }
+    }
 
+    getPost()
+  }, [])
 
-   const getPost = async() =>{
- const response = await axiosClient.get(BLOG_URL)
-      
-      console.log(response.data.blogs)
-      setPost(response.data.blogs)
-   }
-     
+  if (loading) return <p className='p-6'>Loading posts...</p>
+  if (error) return <p className='p-6 text-red-600'>{error}</p>
+  if (!posts.length) return <p className='p-6'>No blog posts yet.</p>
+
   return (
     <section className='p-[20px] grid gap-[40px] mb-64 sm:grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xlg:grid-cols-3'>
-      {response.map((item)=>{
-        const {_id,title,description,image} = item
-        return(
-          <article key={_id} className='shadow-lg m-6'>
-             <div className='grid'>
-              <h2 className='font-bold italic text-lg p-2'>{title}</h2>
-              <img src={image} className='h-[300px] w-[100%]'/>
-              <div>
-                <p className='font-medium font-inherit'>{description}</p>
-              </div>
-             </div>
-          </article>
-        )
-      })}
+      {posts.map((item) => (
+        <article key={item._id} className='shadow-lg m-6'>
+          <div className='grid'>
+            <h2 className='font-bold italic text-lg p-2'>{item.title}</h2>
+            <img src={item.image} className='h-[300px] w-[100%]' alt={item.title} />
+            <div>
+              <p className='font-medium font-inherit'>{item.description}</p>
+            </div>
+          </div>
+        </article>
+      ))}
     </section>
   )
 }

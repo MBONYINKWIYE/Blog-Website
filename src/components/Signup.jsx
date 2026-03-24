@@ -1,4 +1,4 @@
-import React, { useState } from 'react'
+import { useState } from 'react'
 import { Link, useNavigate } from 'react-router-dom'
 import logo from '../images/logo.png'
 import axiosClient from '../Services/GlobalApi'
@@ -8,7 +8,7 @@ const Signup = () => {
   const [email,setEmail]=useState("");
   const [password,setPassword]=useState("");
   const [phone,setPhone]=useState("");
-  const [setErrMsg] = useState("")
+  const [, setErrMsg] = useState("")
 
   const SIGN_UP_URL = '/users';
   const navigate = useNavigate()
