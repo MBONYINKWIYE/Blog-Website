@@ -1,31 +1,17 @@
-import React, { useState, useEffect } from 'react'
 import Search from './Search'
-import Intropost from './Intropost'
-import Blogs from '../Mylayouts/Blogs'
-import GlobalApi from '../Services/GlobalApi'
 import AllPost from './AllPost'
 
 function Home() {
-
-//   useEffect(()=>{
-//     getPost();
-// },[])
-
-// const getPost =()=>{
-//   GlobalApi.getPost.then(resp => {
-//     resp.map((item)=>{
-
-
-//     })
-//   })
-// }
-
   return (
     <>
-     
-        <Search />
+      <Search />
+      <section className='mt-12'>
+        <div className='flex items-end justify-between mb-5'>
+          <h2 className='text-2xl font-bold'>Latest Articles</h2>
+          <p className='text-sm text-slate-500'>Fresh insights from our authors</p>
+        </div>
         <AllPost />
-        
+      </section>
     </>
   )
 }

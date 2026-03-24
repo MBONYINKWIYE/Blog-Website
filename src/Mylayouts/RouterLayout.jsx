@@ -1,27 +1,56 @@
-import React from 'react'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
-import { faYoutube } from '@fortawesome/free-brands-svg-icons'
-import { Link, Outlet } from 'react-router-dom'
+import { faArrowRight, faPenNib } from '@fortawesome/free-solid-svg-icons'
+import { Link, NavLink, Outlet } from 'react-router-dom'
 import logo from '../images/logo.png'
 
 export const RouterLayout = () => {
   return (
-  <>
-    <div className="hover:bg-gray-100  text-purple-900 flex bg-gray-200 justify-between item-center pt-4">
-        <img src={logo} alt='logo Photo' className='h-16 ml-2 rounded-full animate-spin delay-150'/>
-        <ul className="flex gap-4 md:gap-14">
-           <Link to={`${'/'}`}><li className='hover:font-bold cursor-pointer'>Home</li></Link>
-           {/* <Link to={`${'Blogs'}`}><li className='hover:font-bold cursor-pointer'>My Dashboard</li></Link>  */}
-            <Link to={`${'Login'}`}><li className='hover:font-bold cursor-pointer'>Login</li></Link>
-           <Link to={`${'Signup'}`}><li className='hover:font-bold cursor-pointer'>Signup</li></Link> 
-        </ul>
-        <button className='bg-red-500 rounded-full text-white font-bold flex mr-6 items items-center p-1 min-w-max max-h-8'>Subscribe
-        <span><FontAwesomeIcon icon={faYoutube} className='ml-3'/></span>
-        </button>
+    <div className='min-h-screen bg-slate-50 text-slate-900'>
+      <header className='sticky top-0 z-40 bg-white/90 backdrop-blur border-b border-slate-200'>
+        <div className='max-w-6xl mx-auto px-4 py-3 flex items-center justify-between'>
+          <Link to='/' className='flex items-center gap-3'>
+            <img src={logo} alt='Blog logo' className='h-10 w-10 rounded-full' />
+            <div>
+              <p className='font-bold text-lg'>DevBlog Pro</p>
+              <p className='text-xs text-slate-500'>Ideas. Tutorials. Growth.</p>
+            </div>
+          </Link>
+
+          <nav className='hidden md:flex items-center gap-6'>
+            <NavLink to='/' className='hover:text-violet-700'>
+              Home
+            </NavLink>
+            <NavLink to='/login' className='hover:text-violet-700'>
+              User Login
+            </NavLink>
+            <NavLink to='/signup' className='hover:text-violet-700'>
+              Sign Up
+            </NavLink>
+            <NavLink to='/admin/login' className='hover:text-violet-700'>
+              Admin
+            </NavLink>
+          </nav>
+
+          <Link to='/signup' className='inline-flex items-center gap-2 bg-violet-600 text-white px-4 py-2 rounded-lg hover:bg-violet-500'>
+            Start Reading
+            <FontAwesomeIcon icon={faArrowRight} />
+          </Link>
+        </div>
+      </header>
+
+      <main className='max-w-6xl mx-auto px-4 py-8'>
+        <Outlet />
+      </main>
+
+      <footer className='border-t border-slate-200 bg-white'>
+        <div className='max-w-6xl mx-auto px-4 py-5 text-sm text-slate-500 flex items-center justify-between'>
+          <span>© {new Date().getFullYear()} DevBlog Pro</span>
+          <span className='inline-flex items-center gap-2'>
+            <FontAwesomeIcon icon={faPenNib} />
+            Built for modern creators
+          </span>
+        </div>
+      </footer>
     </div>
-    <main>
-      <Outlet />
-    </main>
-  </>
   )
 }

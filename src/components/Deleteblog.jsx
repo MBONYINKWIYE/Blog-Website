@@ -1,58 +1,61 @@
-import { useState,useEffect } from "react";
-import React from 'react'
-import axiosClient from "../Services/GlobalApi";
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faTrash } from "@fortawesome/free-solid-svg-icons";
-import { useNavigate } from "react-router-dom";
+import { useEffect, useState } from 'react'
+import axiosClient from '../Services/GlobalApi'
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
+import { faTrash } from '@fortawesome/free-solid-svg-icons'
 
 const Deleteblog = () => {
-  const [response,setPost] = useState([])
-   
-  const BLOG_URL = '/blogs';
+  const [posts, setPosts] = useState([])
+  const [status, setStatus] = useState('')
 
-  useEffect(()=>{
-     getPost();
-  },[])
+  useEffect(() => {
+    const getPost = async () => {
+      try {
+        const response = await axiosClient.get('/blogs')
+        setPosts(response.data.blogs)
+      } catch {
+        setStatus('Unable to load posts')
+      }
+    }
 
+    getPost()
+  }, [])
 
-  const getPost = async() =>{
-const response = await axiosClient.get(BLOG_URL)
-     
-     console.log(response.data.blogs)
-     setPost(response.data.blogs)
+  const handleDelete = async (id) => {
+    try {
+      await axiosClient.delete(`/blogs/${id}`)
+      setPosts((prev) => prev.filter((item) => item._id !== id))
+      setStatus('Post deleted successfully')
+    } catch {
+      setStatus('Failed to delete post')
+    }
   }
-  
+
   return (
-    <tbody>
-    {response.map((item)=>{
-      const {_id,title,description,image} = item
-      return(
-        <tr key={_id} className='shadow-lg m-6 p-6'>
-           
-           
-            <td>{title}</td>
-            <td>{description}</td>
-           <span>
-            <FontAwesomeIcon icon={faTrash} onClick={async() =>{
-              try {
-                const postList = await axiosClient.delete(`/blogs/${_id}`)
-                setPost(postList);
-
-                console.log("is deleting....")
-                window.location.reload();
-            
-              } catch (error) {
-
-                console.log(error)
-              }
-               
-            }
-           } className=""/>
-           </span>
-        </tr>
-      )
-    })}
-  </tbody>
+    <div className='overflow-x-auto'>
+      {status && <p className='mb-4 text-sm font-semibold text-purple-700'>{status}</p>}
+      <table className='min-w-full bg-white rounded-lg'>
+        <thead>
+          <tr className='text-left border-b'>
+            <th className='p-3'>Title</th>
+            <th className='p-3'>Description</th>
+            <th className='p-3'>Action</th>
+          </tr>
+        </thead>
+        <tbody>
+          {posts.map((item) => (
+            <tr key={item._id} className='border-b'>
+              <td className='p-3 font-medium'>{item.title}</td>
+              <td className='p-3'>{item.description}</td>
+              <td className='p-3'>
+                <button onClick={() => handleDelete(item._id)} aria-label={`Delete ${item.title}`}>
+                  <FontAwesomeIcon icon={faTrash} className='text-red-600' />
+                </button>
+              </td>
+            </tr>
+          ))}
+        </tbody>
+      </table>
+    </div>
   )
 }
 
